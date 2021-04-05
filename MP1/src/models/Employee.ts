@@ -138,4 +138,8 @@ export class Employee {
     }
     return Seniority.SENIOR;
   }
+
+  public sayHello(): void {
+    console.log("Hello! I'm an employee!");
+  }
 }

@@ -1,4 +1,6 @@
-import { Employee, Roles } from "./models";
+import { Employee, Roles, Manager } from "./models";
+
+const fs = require("fs");
 
 export const main = (): void => {
   console.log("hello");
@@ -26,4 +28,14 @@ export const main = (): void => {
 
   // save extent
   Employee.saveEmployees();
+
+  // override
+  const manager1 = new Manager(
+    "Jack",
+    "Marel",
+    9000,
+    Roles.MANAGER,
+    ["English"],
+    [emp1, emp2]
+  );
 };
