@@ -3,14 +3,27 @@ import { Employee, Roles } from "./models";
 export const main = (): void => {
   console.log("hello");
 
-  let testEmp = new Employee(
+  let emp1 = new Employee(
     "Kamil",
     "Sikora",
     12000,
     Roles.DEVELOPER,
+    ["Polish", "English"],
     "insuranceId"
   );
+  let emp2 = new Employee(
+    "Marina",
+    "Satti",
+    10000,
+    Roles.DEVELOPER,
+    ["Greek", "Arabic"],
+    "insuranceId2",
+    emp1
+  );
 
-  console.log(testEmp.getEmploymentDate());
+  console.log(emp1.getEmploymentDate());
   Employee.showExtent();
+
+  // save extent
+  Employee.saveEmployees();
 };
