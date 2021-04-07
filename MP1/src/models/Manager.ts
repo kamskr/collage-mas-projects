@@ -26,6 +26,10 @@ export class Manager extends Employee {
     this.subordinates = subordinates;
   }
 
+  public sayHello(): void {
+    console.log("Hello I'm a manager!");
+  }
+
   public getSubordinates(): Employee[] {
     return this.subordinates;
   }
