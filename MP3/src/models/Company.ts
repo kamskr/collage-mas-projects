@@ -1,14 +1,15 @@
+import { Client } from "./Client";
 import { Employee } from "./Employee";
 import { Employment } from "./Employment";
-import { Roles } from "./Roles";
 
-export class Company {
+export class Company extends Client {
   private companyName: string;
   public employeesBinary: Employee[];
   private employeesQualified: { [pesel: string]: Employee } = {};
   public employmentHistory: Employment[]; // atrybut asocjacji
 
-  constructor(companyName: string) {
+  constructor(companyName: string, login: string, password: string) {
+    super(login, password);
     this.companyName = companyName;
     this.employeesBinary = [];
     this.employeesQualified = {};
@@ -55,6 +56,15 @@ export class Company {
 
   public getEmployeeQualified(pesel: string): Employee {
     return this.employeesQualified[pesel];
+  }
+
+  public changePassword(newPassword: string) {
+    this.password = newPassword;
+  }
+
+  public checkPassword(password: string) {
+    if (password === this.password) return true;
+    return false;
   }
 
   // Override

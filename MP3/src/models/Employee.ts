@@ -1,6 +1,5 @@
 import { Company } from "./Company";
 import { Employment } from "./Employment";
-import { Roles } from "./Roles";
 import { Seniority } from "./Seniority";
 
 const fs = require("fs");
