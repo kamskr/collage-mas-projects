@@ -63,6 +63,7 @@ export class Company extends Client {
   }
 
   public checkPassword(password: string) {
+    console.log("check password wykonane z Company");
     if (password === this.password) return true;
     return false;
   }

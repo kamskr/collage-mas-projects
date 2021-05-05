@@ -1,6 +1,6 @@
 import { Client } from "./Client";
 
-export class Company extends Client {
+export class IndividualClient extends Client {
   public firstName: string;
   public lastName: string;
   public pesel: string;
@@ -26,10 +26,8 @@ export class Company extends Client {
   }
 
   public checkPassword(password: string) {
+    console.log("check password wykonane z IndividualClient");
     if (password === this.password) return true;
     return false;
   }
-
-  // Override
-  // Typescript doesn't provide traditional overloading: https://stackoverflow.com/questions/12688275/is-there-a-way-to-do-method-overloading-in-typescript/12689054#12689054
 }

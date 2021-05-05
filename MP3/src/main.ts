@@ -1,6 +1,10 @@
-import { Employee, Manager, Engeneer } from "./models";
-
-
+import {
+  Employee,
+  Manager,
+  Engeneer,
+  IndividualClient,
+  Company,
+} from "./models";
 
 export const main = (): void => {
   console.log("\n\n *** MP3 Dziedziczenie *** \n\n");
@@ -14,8 +18,8 @@ export const main = (): void => {
     12000,
     ["Polish", "English"],
     "insuranceId"
-  ); 
-  console.log(employee)
+  );
+  console.log(employee);
 
   // Manager dziedziczy by Employee
   let manager = new Manager(
@@ -27,7 +31,7 @@ export const main = (): void => {
     [employee],
     "insuranceId2"
   );
-  console.log(manager)
+  console.log(manager);
 
   // Engeneer równiez dziedziczy po employee
   const engeneer = new Engeneer(
@@ -36,11 +40,30 @@ export const main = (): void => {
     "Marel",
     9000,
     ["English"],
-    ["Java", "JS","Python"],
+    ["Java", "JS", "Python"]
   );
-  console.log(engeneer)
-  
-  
+  console.log(engeneer);
 
+  // Klasa abstrakcyjna
+  console.log("\n\n *** Klasa abstrakcyjna *** \n\n");
+  // Zarówno client1 jak i client2 dziedziczą po abstrakcyjnej klasie Client,
+  // posiadają atrybuty z Client takie jak: id, login, password i dateJoined,
+  // oraz implementują abstrakcyjne metody changePassword i checkPassword
 
+  const client1 = new IndividualClient(
+    "login1",
+    "password1",
+    "Kamil",
+    "Sikora",
+    "11234121",
+    "123123123"
+  );
+  console.log(client1);
+  const client2 = new Company("Tesla", "login2", "password2");
+  console.log(client2);
+
+  // Polimorficzne wołanie metody
+  console.log("\n\n *** Polimorficzne wołanie metody *** \n\n");
+  client1.checkPassword("test");
+  client2.checkPassword("test");
 };
