@@ -1,4 +1,5 @@
 import { Company } from "./Company";
+import { Employment } from "./Employment";
 import { Roles } from "./Roles";
 import { Seniority } from "./Seniority";
 
@@ -15,6 +16,7 @@ export class Employee {
   private knownLanguages: string[]; // repeatable attribute
   private superior?: Employee; // complex & optional attribute
   private insurance?: string; //optional attribute
+  public employmentHistory: Employment[]; // atrybut asocjacji
 
   private static employeeExtent: Employee[] = []; // class attribute
 
@@ -38,6 +40,8 @@ export class Employee {
     this.knownLanguages = knownLanguages;
     this.superior = superior;
     this.insurance = insurance;
+    this.employmentHistory = [];
+
     Employee.addEmployee(this);
   }
 
