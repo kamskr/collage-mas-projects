@@ -93,14 +93,6 @@ export class Employee {
     this.salary = salary;
   }
 
-  public getRole(): Roles {
-    return this.role;
-  }
-
-  public setRole(role: Roles): void {
-    this.role = role;
-  }
-
   public getKnownLanguages(): string[] {
     return this.knownLanguages;
   }

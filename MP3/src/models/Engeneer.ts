@@ -1,5 +1,4 @@
 import { Employee } from "./Employee";
-import { Roles } from "./Roles";
 
 export class Engeneer extends Employee {
   private programmingLanguages: string[];
