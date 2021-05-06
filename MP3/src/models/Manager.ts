@@ -1,3 +1,4 @@
+import { Female, Male } from ".";
 import { Employee } from "./Employee";
 import { Roles } from "./Roles";
 
@@ -5,6 +6,7 @@ export class Manager extends Employee {
   private subordinates: Employee[];
 
   constructor(
+    gender: Male | Female,
     pesel: string,
     firstName: string,
     lastName: string,
@@ -15,6 +17,7 @@ export class Manager extends Employee {
     superior?: Employee
   ) {
     super(
+      gender,
       pesel,
       firstName,
       lastName,

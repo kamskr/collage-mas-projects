@@ -5,3 +5,6 @@ export { Engeneer } from "./Engeneer";
 export { Client } from "./Client";
 export { IndividualClient } from "./IndividualClient";
 export { Company } from "./Company";
+export { Male } from "./Male";
+export { Female } from "./Female";
+export * from "./overlapping";

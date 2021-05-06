@@ -1,4 +1,6 @@
 import { Employee } from "./Employee";
+import { Female } from "./Female";
+import { Male } from "./Male";
 
 interface IStudent {
   sId: string;
@@ -8,6 +10,7 @@ export class WorkingStudent extends Employee implements IStudent {
   public sId: string;
 
   constructor(
+    gender: Male | Female,
     sId: string,
     pesel: string,
     firstName: string,
@@ -18,6 +21,7 @@ export class WorkingStudent extends Employee implements IStudent {
     superior?: Employee
   ) {
     super(
+      gender,
       pesel,
       firstName,
       lastName,

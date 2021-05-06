@@ -4,14 +4,19 @@ import {
   Engeneer,
   IndividualClient,
   Company,
+  Male,
+  Female,
+  Person,
 } from "./models";
+import { WorkingStudent } from "./models/WorkingStudent";
 
 export const main = (): void => {
   console.log("\n\n *** MP3 Dziedziczenie *** \n\n");
 
-  // Disjoint & Klasa abstrakcyjna
+  // Disjoint
   console.log("\n\n *** Disjoint *** \n\n");
   let employee = new Employee(
+    new Male(false),
     "96120212345",
     "Kamil",
     "Sikora",
@@ -23,6 +28,7 @@ export const main = (): void => {
 
   // Manager dziedziczy by Employee
   let manager = new Manager(
+    new Female("Bugatti"),
     "01120212345",
     "Marina",
     "Satti",
@@ -35,6 +41,7 @@ export const main = (): void => {
 
   // Engeneer równiez dziedziczy po employee
   const engeneer = new Engeneer(
+    new Male(false),
     "01120254321",
     "Jack",
     "Marel",
@@ -66,4 +73,51 @@ export const main = (): void => {
   console.log("\n\n *** Polimorficzne wołanie metody *** \n\n");
   client1.checkPassword("test");
   client2.checkPassword("test");
+
+  // Overlapping
+  console.log("\n\n *** Overlapping *** \n\n");
+
+  const person = new Person("123451234", "Mat", "Albert");
+
+  console.log(person);
+
+  const personWithStudentData = new Person("432141122", "Matthias", "Elberto", {
+    studentId: "s1234565",
+  });
+
+  console.log(personWithStudentData);
+
+  const personWithEmployeeData = new Person("43212341", "Marcel", "Maik", {
+    salary: 12000,
+  });
+
+  console.log(personWithEmployeeData);
+
+  const personWorkingStudent = new Person("12341234", "Kam", "Es", {
+    salary: 12000,
+    studentId: "s12341",
+  });
+
+  console.log(personWorkingStudent);
+
+  // Wielodziedziczenie
+  console.log("\n\n *** Wielodziedziczenie *** \n\n");
+
+  const workingStudent = new WorkingStudent(
+    new Male(false),
+    "s18586",
+    "96120212345",
+    "Kamil",
+    "Sikora",
+    12000,
+    ["Polish", "English"],
+    "insuranceId"
+  );
+  console.log(workingStudent);
+  console.log(workingStudent.getAverageGrade());
+  console.log(workingStudent.getSeniority());
+
+  // Wieloaspektowe
+  console.log("\n\n *** Wieloaspektowe *** \n\n");
+  console.log(workingStudent.gender);
 };

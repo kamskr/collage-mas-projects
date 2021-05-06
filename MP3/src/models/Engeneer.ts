@@ -1,9 +1,11 @@
+import { Female, Male } from ".";
 import { Employee } from "./Employee";
 
 export class Engeneer extends Employee {
   private programmingLanguages: string[];
 
   constructor(
+    public gender: Male | Female,
     pesel: string,
     firstName: string,
     lastName: string,
@@ -14,6 +16,7 @@ export class Engeneer extends Employee {
     superior?: Employee
   ) {
     super(
+      gender,
       pesel,
       firstName,
       lastName,
@@ -29,7 +32,7 @@ export class Engeneer extends Employee {
     console.log("Hello I'm a manager!");
   }
 
-  public getProgrammingLanguages(): string[]  {
+  public getProgrammingLanguages(): string[] {
     return this.programmingLanguages;
   }
 

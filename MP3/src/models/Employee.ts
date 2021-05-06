@@ -1,3 +1,4 @@
+import { Female, Male } from ".";
 import { Company } from "./Company";
 import { Employment } from "./Employment";
 import { Seniority } from "./Seniority";
@@ -5,6 +6,7 @@ import { Seniority } from "./Seniority";
 const fs = require("fs");
 
 export class Employee {
+  public gender: Male | Female;
   private pesel: string;
   private company: Company | null;
   private firstName: string; // simpel attribute
@@ -19,6 +21,7 @@ export class Employee {
   private static employeeExtent: Employee[] = []; // class attribute
 
   constructor(
+    gender: Male | Female,
     pesel: string,
     firstName: string,
     lastName: string,
@@ -27,6 +30,7 @@ export class Employee {
     insurance?: string,
     superior?: Employee
   ) {
+    this.gender = gender;
     this.pesel = pesel;
     this.company = null;
     this.firstName = firstName;
