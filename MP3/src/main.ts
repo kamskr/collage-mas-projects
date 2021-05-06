@@ -127,7 +127,11 @@ export const main = (): void => {
   let dynamicPerson = new PersonDynamic("123412", "Atlas", "Dynamo");
   console.log(dynamicPerson);
 
-  // Teraz zmienimy na Student
+  // Teraz zmienimy na Employee
   dynamicPerson = dynamicPerson.changeToEmployee(12000);
+  console.log(dynamicPerson);
+
+  // I na Student
+  dynamicPerson = dynamicPerson.changeToStudent("s18581");
   console.log(dynamicPerson);
 };
