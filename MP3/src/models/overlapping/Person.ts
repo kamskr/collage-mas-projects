@@ -29,9 +29,11 @@ export class Person {
       }
     }
   }
+
   public addEmployee(salary: number): void {
     this.employee = new EmployeeOverlapping(salary);
   }
+
   public addStudent(studentId: string): void {
     this.student = new Student(studentId);
   }

@@ -1,6 +1,5 @@
 import { Female, Male } from ".";
 import { Employee } from "./Employee";
-import { Roles } from "./Roles";
 
 export class Manager extends Employee {
   private subordinates: Employee[];

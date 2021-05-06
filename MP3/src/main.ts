@@ -8,6 +8,7 @@ import {
   Female,
   Person,
 } from "./models";
+import { PersonDynamic } from "./models/dynamic/internal";
 import { WorkingStudent } from "./models/WorkingStudent";
 
 export const main = (): void => {
@@ -120,4 +121,13 @@ export const main = (): void => {
   // Wieloaspektowe
   console.log("\n\n *** Wieloaspektowe *** \n\n");
   console.log(workingStudent.gender);
+
+  // Dynamic
+  console.log("\n\n *** Dynamic *** \n\n");
+  let dynamicPerson = new PersonDynamic("123412", "Atlas", "Dynamo");
+  console.log(dynamicPerson);
+
+  // Teraz zmienimy na Student
+  dynamicPerson = dynamicPerson.changeToEmployee(12000);
+  console.log(dynamicPerson);
 };
