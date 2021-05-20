@@ -1,6 +1,5 @@
 import { Company } from "./Company";
 import { Employee } from "./Employee";
-import { Roles } from "./Roles";
 
 export class Employment {
   public company: Company;

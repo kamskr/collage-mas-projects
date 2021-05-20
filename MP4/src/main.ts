@@ -2,21 +2,19 @@ import {
   Employee,
   Manager,
   Engeneer,
-  IndividualClient,
-  Company,
   Male,
   Female,
-  Person,
+  Team,
+  Company,
+  IndividualClient,
+  Car,
 } from "./models";
-import { PersonDynamic } from "./models/dynamic/internal";
-import { WorkingStudent } from "./models/WorkingStudent";
+import {} from "./models/Car";
 
 export const main = (): void => {
   console.log("\n\n *** MP3 Dziedziczenie *** \n\n");
 
-  // Disjoint
-  console.log("\n\n *** Disjoint *** \n\n");
-  let employee = new Employee(
+  const employee = new Employee(
     new Male(false),
     "96120212345",
     "Kamil",
@@ -25,10 +23,7 @@ export const main = (): void => {
     ["Polish", "English"],
     "insuranceId"
   );
-  console.log(employee);
-
-  // Manager dziedziczy by Employee
-  let manager = new Manager(
+  const manager = new Manager(
     new Female("Bugatti"),
     "01120212345",
     "Marina",
@@ -38,9 +33,7 @@ export const main = (): void => {
     [employee],
     "insuranceId2"
   );
-  console.log(manager);
 
-  // Engeneer równiez dziedziczy po employee
   const engeneer = new Engeneer(
     new Male(false),
     "01120254321",
@@ -50,88 +43,145 @@ export const main = (): void => {
     ["English"],
     ["Java", "JS", "Python"]
   );
-  console.log(engeneer);
 
-  // Klasa abstrakcyjna
-  console.log("\n\n *** Klasa abstrakcyjna *** \n\n");
-  // Zarówno client1 jak i client2 dziedziczą po abstrakcyjnej klasie Client,
-  // posiadają atrybuty z Client takie jak: id, login, password i dateJoined,
-  // oraz implementują abstrakcyjne metody changePassword i checkPassword
+  // Ograniczenia Atrybutów
+  console.log("** ATRYBUTÓW **");
 
-  const client1 = new IndividualClient(
-    "login1",
-    "password1",
-    "Kamil",
-    "Sikora",
-    "11234121",
-    "123123123"
-  );
-  console.log(client1);
-  const client2 = new Company("Tesla", "login2", "password2");
-  console.log(client2);
+  try {
+    engeneer.setSalary(50);
+  } catch (e) {
+    console.error(e);
+  }
+  try {
+    engeneer.setSalary(8000);
+  } catch (e) {
+    console.error(e);
+  }
+  try {
+    engeneer.setSalary(199999999);
+  } catch (e) {
+    console.error(e);
+  }
 
-  // Polimorficzne wołanie metody
-  console.log("\n\n *** Polimorficzne wołanie metody *** \n\n");
-  client1.checkPassword("test");
-  client2.checkPassword("test");
+  engeneer.setSalary(9500);
+  console.log("Success! New salary: ", engeneer.getSalary());
 
-  // Overlapping
-  console.log("\n\n *** Overlapping *** \n\n");
+  //Unique
+  console.log("\n\n** UNIQUE **\n\n");
+  // Do zaimplementowania Ograniczenia {unique} wykorzystalem literał obiektowy JavaScript.
+  // Pozwala to na szybkie wyciągnięcie peselu z kolekcji oraz łatwe sprawdzenie czy wartosci są unikalne
 
-  const person = new Person("123451234", "Mat", "Albert");
+  // Proba stworzenia engeneer z istniejącym peselem
+  let engeneer2;
+  try {
+    engeneer2 = new Engeneer(
+      new Male(false),
+      "01120254321",
+      "Kamil",
+      "Mareli",
+      17000,
+      ["English"],
+      ["TS", "JS", "SQL"]
+    );
+  } catch (e) {
+    console.error(e);
+  }
 
-  console.log(person);
+  //  Proba zmiany peselu na istniejący
 
-  const personWithStudentData = new Person("432141122", "Matthias", "Elberto", {
-    studentId: "s1234565",
-  });
-
-  console.log(personWithStudentData);
-
-  const personWithEmployeeData = new Person("43212341", "Marcel", "Maik", {
-    salary: 12000,
-  });
-
-  console.log(personWithEmployeeData);
-
-  const personWorkingStudent = new Person("12341234", "Kam", "Es", {
-    salary: 12000,
-    studentId: "s12341",
-  });
-
-  console.log(personWorkingStudent);
-
-  // Wielodziedziczenie
-  console.log("\n\n *** Wielodziedziczenie *** \n\n");
-
-  const workingStudent = new WorkingStudent(
+  try {
+    employee.setPesel("01120212345");
+  } catch (e) {
+    console.error(e);
+  }
+  // to juz zadziała
+  engeneer2 = new Engeneer(
     new Male(false),
-    "s18586",
-    "96120212345",
+    "01120254399",
     "Kamil",
-    "Sikora",
-    12000,
-    ["Polish", "English"],
-    "insuranceId"
+    "Mareli",
+    17000,
+    ["English"],
+    ["TS", "JS", "SQL"]
   );
-  console.log(workingStudent);
-  console.log(workingStudent.getAverageGrade());
-  console.log(workingStudent.getSeniority());
+  console.log(engeneer2);
 
-  // Wieloaspektowe
-  console.log("\n\n *** Wieloaspektowe *** \n\n");
-  console.log(workingStudent.gender);
+  engeneer2.setEmploymentDate(new Date(2000, 1, 1));
+  // Subset
+  console.log("\n\n** SUBSET **\n\n");
 
-  // Dynamic
-  console.log("\n\n *** Dynamic *** \n\n");
-  let dynamicPerson = new PersonDynamic("123412", "Atlas", "Dynamo");
-  console.log(dynamicPerson);
+  const team = new Team([employee, engeneer, manager]);
 
-  // Teraz zmienimy na Employee
-  dynamicPerson = dynamicPerson.changeToEmployee(12000);
-  console.log(dynamicPerson);
+  // Nie ma employee 2 w tym zespole więc powinien się wyświetlić błąd
+  try {
+    team.setTeamLeader(engeneer2);
+  } catch (e) {
+    console.error(e);
+  }
 
-  // I na Student
-  dynamicPerson = dynamicPerson.changeToStudent("s18581");
-  console.log(dynamicPerson);
+  team.addTeamMember(engeneer2);
+
+  //this works
+  try {
+    team.setTeamLeader(engeneer2);
+  } catch (e) {
+    console.error(e);
+  }
+
+  console.log(team);
+
+  // Ordered
+  console.log("\n\n** ORDERED **\n\n");
+  // Funkcjonalnośc zaimplementowałem w klasie Car. Samochody posiadają kolejke wynajmu dla danego samochodu.
+  // Kolejni klienci chcący wynając samochód zawsze wpadają na koniec kolejki, kolejność jest więc zawsze
+  // zgodna z kolejnością wprowadzenia do systemu
+
+  const company = new Company("Tesla", "t1213412", "hardPassword");
+  const client2 = new IndividualClient(
+    "login",
+    "password",
+    "some",
+    "name",
+    "12341234",
+    "1234123"
+  );
+
+  const car = new Car("tsl", "X");
+
+  car.requestRental(company);
+  car.requestRental(client2);
+
+  console.log(car.getRentQueue());
+
+  // Bag
+  console.log("\n\n** BAG **\n\n");
+  // Ta funkcjonalność została zamilementowana w klasie Company
+  // przechowywana jest kazda relacja miedzy Company a Employee
+  // za pomocą employmentHistory
+
+  company.addEmployeeAsociationAttribute(
+    employee,
+    new Date(1995, 11, 17),
+    new Date(2001, 11, 17)
+  );
+  company.addEmployeeAsociationAttribute(
+    employee,
+    new Date(2003, 11, 17),
+    new Date(2010, 11, 17)
+  );
+
+  console.log(company.getEmploymentHistory());
+
+  // Xor
+  console.log("\n\n** BAG **\n\n");
+
+  //  Ograniczenie własne
+  console.log("\n\n** OGRANICZENIA WŁASNE **\n\n");
+  // Jak rozumiem, są to dowonle ograniczenia wymagane przez klienta
+  // Przykład: Aby pracownik stał się team leaderem, musi posiadać conajmniej 2 lata doświadczenia w obecnej firmie.
+  try {
+    team.setTeamLeader(engeneer);
+  } catch (e) {
+    console.log(e);
+  }
 };

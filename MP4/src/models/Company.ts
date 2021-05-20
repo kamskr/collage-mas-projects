@@ -68,6 +68,9 @@ export class Company extends Client {
     return false;
   }
 
+  public getEmploymentHistory(): Employment[] {
+    return this.employmentHistory;
+  }
   // Override
   // Typescript doesn't provide traditional overloading: https://stackoverflow.com/questions/12688275/is-there-a-way-to-do-method-overloading-in-typescript/12689054#12689054
 }

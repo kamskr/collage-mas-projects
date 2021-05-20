@@ -2,6 +2,7 @@ import { Female, Male } from ".";
 import { Company } from "./Company";
 import { Employment } from "./Employment";
 import { Seniority } from "./Seniority";
+import { minimalSalary, maxSalaryChangePercent } from "../consts";
 
 const fs = require("fs");
 
@@ -19,6 +20,7 @@ export class Employee {
   public employmentHistory: Employment[]; // atrybut asocjacji
 
   private static employeeExtent: Employee[] = []; // class attribute
+  private static peselList: { [key: string]: Employee } = {};
 
   constructor(
     gender: Male | Female,
@@ -30,6 +32,9 @@ export class Employee {
     insurance?: string,
     superior?: Employee
   ) {
+    if (Employee.peselList[pesel]) {
+      throw new Error("Employee with that pesel already exists!");
+    }
     this.gender = gender;
     this.pesel = pesel;
     this.company = null;
@@ -41,7 +46,7 @@ export class Employee {
     this.superior = superior;
     this.insurance = insurance;
     this.employmentHistory = [];
-
+    Employee.peselList[pesel] = this;
     Employee.addEmployee(this);
   }
 
@@ -50,6 +55,11 @@ export class Employee {
   }
 
   public setPesel(pesel: string): void {
+    if (Employee.peselList[pesel]) {
+      throw new Error("Employee with that pesel already exists!");
+    }
+    delete Employee.peselList[this.pesel];
+    Employee.peselList[pesel] = this;
     this.pesel = pesel;
   }
 
@@ -93,6 +103,16 @@ export class Employee {
   }
 
   public setSalary(salary: number): void {
+    if (salary < minimalSalary) {
+      throw new Error("Salary can't be lower than minimal");
+    }
+    if (salary < this.salary) {
+      throw new Error("New salary cant be lower than old salary");
+    }
+
+    if (this.salary * (1 + maxSalaryChangePercent / 100) < salary) {
+      throw new Error(`Maximum salary increase is ${maxSalaryChangePercent}%`);
+    }
     this.salary = salary;
   }
 
