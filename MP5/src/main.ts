@@ -1,27 +1,26 @@
-require("dotenv").config();
-const Express = require("express");
-const BodyParser = require("body-parser");
-const MongoClient = require("mongodb").MongoClient;
-const ObjectId = require("mongodb").ObjectID;
+import express from "express";
+import config from "./config";
+// import { deserializeUser } from "./middleware";
+import connect from "./db/connect";
+import routes from "./routes";
+import log from "./logger";
 
 export const main = (): void => {
-  var app = Express();
-  app.use(BodyParser.json());
-  app.use(BodyParser.urlencoded({ extended: true }));
+  const port = config.port as number;
+  const host = config.host as string;
 
-  let database, collection;
-  app.listen(5000, () => {
-    MongoClient.connect(
-      process.env.CONNECTION_URL,
-      { useNewUrlParser: true },
-      (error: any, client: { db: (arg0: string | undefined) => any }) => {
-        if (error) {
-          throw error;
-        }
-        database = client.db(process.env.DATABASE_NAME);
-        collection = database.collection("personnel");
-        console.log("Connected to `" + process.env.DATABASE_NAME + "`!");
-      }
-    );
+  const app = express();
+  // app.use(deserializeUser);
+  console.log(config);
+  // Parses incoming requests with JSON payloads
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
+
+  app.listen(port, host, () => {
+    log.info(`Server listing at http://${host}:${port}`);
+
+    connect();
+
+    routes(app);
   });
 };
