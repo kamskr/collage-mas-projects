@@ -19,6 +19,9 @@ export class UserDocument extends mongoose.Document {
 
     return bcrypt.compare(candidatePassword, user.password).catch((e) => false);
   }
+  public sayHello(): void {
+    console.log("hello from " + this.name);
+  }
 }
 
 const UserSchema = new mongoose.Schema(
@@ -49,6 +52,7 @@ UserSchema.pre("save", async function (next: mongoose.HookNextFunction) {
 
 // Used for logging in
 UserSchema.methods.comparePassword = UserDocument.prototype.comparePassword;
+UserSchema.methods.sayHello = UserDocument.prototype.sayHello;
 
 const User = mongoose.model<UserDocument>("User", UserSchema);
 
