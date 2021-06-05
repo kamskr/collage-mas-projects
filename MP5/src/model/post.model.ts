@@ -2,12 +2,16 @@ import mongoose from "mongoose";
 import { nanoid } from "nanoid";
 import { UserDocument } from "./user.model";
 
-export interface PostDocument extends mongoose.Document {
+export class PostDocument extends mongoose.Document {
   user: UserDocument["_id"];
   title: string;
   body: string;
-  createdAt: Date;
-  updatedAt: Date;
+
+  constructor(data: { title: string; body: string }) {
+    super();
+    this.title = data.title;
+    this.body = data.body;
+  }
 }
 
 const PostSchema = new mongoose.Schema(

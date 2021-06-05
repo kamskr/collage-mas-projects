@@ -1,12 +1,16 @@
 import mongoose from "mongoose";
 import { UserDocument } from "./user.model";
 
-export interface SessionDocument extends mongoose.Document {
+export class SessionDocument extends mongoose.Document {
   user: UserDocument["_id"];
   valid: boolean;
   userAgent: string;
-  createdAt: Date;
-  updatedAt: Date;
+
+  constructor(data: { valid: boolean; userAgent: string }) {
+    super();
+    this.valid = data.valid;
+    this.userAgent = data.userAgent;
+  }
 }
 
 const SessionSchema = new mongoose.Schema(

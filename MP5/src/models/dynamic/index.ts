@@ -1,1 +1,0 @@
-export { PersonDynamic } from "./PersonDynamic";

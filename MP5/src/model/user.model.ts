@@ -2,13 +2,23 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import config from "../config";
 
-export interface UserDocument extends mongoose.Document {
+export class UserDocument extends mongoose.Document {
   email: string;
   name: string;
   password: string;
-  createdAt: Date;
-  updatedAt: Date;
-  comparePassword(candidatePassword: string): Promise<boolean>;
+
+  constructor(data: { email: string; name: string; password: string }) {
+    super();
+    this.email = data.email;
+    this.name = data.name;
+    this.password = data.password;
+  }
+
+  public async comparePassword(candidatePassword: string): Promise<boolean> {
+    const user = this as UserDocument;
+
+    return bcrypt.compare(candidatePassword, user.password).catch((e) => false);
+  }
 }
 
 const UserSchema = new mongoose.Schema(
@@ -38,13 +48,7 @@ UserSchema.pre("save", async function (next: mongoose.HookNextFunction) {
 });
 
 // Used for logging in
-UserSchema.methods.comparePassword = async function (
-  candidatePassword: string
-) {
-  const user = this as UserDocument;
-
-  return bcrypt.compare(candidatePassword, user.password).catch((e) => false);
-};
+UserSchema.methods.comparePassword = UserDocument.prototype.comparePassword;
 
 const User = mongoose.model<UserDocument>("User", UserSchema);
 
