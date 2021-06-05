@@ -1,6 +1,6 @@
 import express from "express";
 import config from "./config";
-// import { deserializeUser } from "./middleware";
+import { deserializeUser } from "./middleware";
 import connect from "./db/connect";
 import routes from "./routes";
 import log from "./logger";
@@ -10,7 +10,7 @@ export const main = (): void => {
   const host = config.host as string;
 
   const app = express();
-  // app.use(deserializeUser);
+  app.use(deserializeUser);
   // Parses incoming requests with JSON payloads
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));

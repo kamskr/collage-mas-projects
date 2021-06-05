@@ -1,8 +1,14 @@
 import { Request, Response } from "express";
 import { validatePassword } from "../service/user.service";
-import { createAccessToken, createSession } from "../service/session.service";
+import {
+  createAccessToken,
+  createSession,
+  findSessions,
+  updateSession,
+} from "../service/session.service";
 import config from "../config";
 import { sign } from "../utils/jwt.utils";
+import { get } from "lodash";
 
 export const createUserSessionHandler = async (req: Request, res: Response) => {
   const user = await validatePassword(req.body);
@@ -23,4 +29,22 @@ export const createUserSessionHandler = async (req: Request, res: Response) => {
   });
 
   return res.send({ accessToken, refreshToken });
+};
+
+export const invalidateUserSessionHandler = async (
+  req: Request,
+  res: Response
+) => {
+  const sessionId = get(req, "user.session");
+
+  await updateSession({ _id: sessionId }, { valid: false });
+
+  res.sendStatus(200);
+};
+
+export const getUserSessionsHandler = async (req: Request, res: Response) => {
+  const userId = get(req, "user._id");
+  const sessions = await findSessions({ user: userId, valid: true });
+
+  return res.send(sessions);
 };
