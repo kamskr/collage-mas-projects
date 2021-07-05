@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { UserDocument } from "./user.model";
+zimport mongoose from "mongoose";
+import { UserDocument } from "./Employee.model";
 
 export class SessionDocument extends mongoose.Document {
   user: UserDocument["_id"];

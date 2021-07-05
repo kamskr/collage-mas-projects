@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import config from "../config";
-import { UserDocument } from "./user.model";
+import { UserDocument } from "./Employee.model";
 
 export class CompanyDocument extends UserDocument {
   nip: string;

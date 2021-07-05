@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { nanoid } from "nanoid";
-import { UserDocument } from "./user.model";
+import { UserDocument } from "./Employee.model";
 
 export class PostDocument extends mongoose.Document {
   user: UserDocument["_id"];

@@ -1,4 +1,4 @@
-import User from "./model/user.model";
+import User from "./model/Employee.model";
 import Session from "./model/session.model";
 import Company from "./model/Company.model";
 import { setUpServer } from "./server";
