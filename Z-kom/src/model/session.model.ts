@@ -1,8 +1,8 @@
-zimport mongoose from "mongoose";
-import { UserDocument } from "./Employee.model";
+import mongoose from "mongoose";
+import { EmployeeDocument } from "./Employee.model";
 
 export class SessionDocument extends mongoose.Document {
-  user: UserDocument["_id"];
+  employee: EmployeeDocument["_id"];
   valid: boolean;
   userAgent: string;
 
@@ -15,7 +15,7 @@ export class SessionDocument extends mongoose.Document {
 
 const SessionSchema = new mongoose.Schema(
   {
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    employee: { type: mongoose.Schema.Types.ObjectId, ref: "Employee" },
     valid: { type: Boolean, default: true },
     userAgent: { type: String },
   },

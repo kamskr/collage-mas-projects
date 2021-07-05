@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import config from "../config";
+import { Person } from "./Person.model";
 
 enum Specialisation {
   frontEndDeveloper = "Front End Developer",
@@ -8,10 +9,20 @@ enum Specialisation {
   manager = "Manager",
   salesman = "Salesman",
 }
+interface IEmployee {
+  getSalary: () => number;
+  getTrainings: () => string[];
+  getEmail: () => string;
+  setNewSalary: (salary: number) => void;
+}
 
-export class EmployeeDocument extends mongoose.Document {
+export class EmployeeDocument
+  extends mongoose.Document
+  implements Person, IEmployee
+{
   email: string;
   name: string;
+  surname: string;
   password: string;
   salary: number;
   trainings: string[];
@@ -20,6 +31,7 @@ export class EmployeeDocument extends mongoose.Document {
   constructor(data: {
     email: string;
     name: string;
+    surname: string;
     password: string;
     salary: number;
     trainings: string[];
@@ -28,6 +40,7 @@ export class EmployeeDocument extends mongoose.Document {
     super();
     this.email = data.email;
     this.name = data.name;
+    this.surname = data.surname;
     this.password = data.password;
     this.salary = data.salary;
     this.trainings = data.trainings;
@@ -58,6 +71,7 @@ const EmployeeSchema = new mongoose.Schema(
   {
     email: { type: String, required: true, unique: true },
     name: { type: String, required: true },
+    surname: { type: String, required: true },
     password: { type: String, required: true },
     salary: {
       type: Number,

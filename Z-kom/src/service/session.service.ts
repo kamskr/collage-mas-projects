@@ -1,6 +1,6 @@
 import { FilterQuery, LeanDocument, UpdateQuery } from "mongoose";
 import Session, { SessionDocument } from "../model/session.model";
-import { UserDocument } from "../model/Employee.model";
+import { UserDocument } from "../model/user.model";
 import config from "../config";
 import { decode, sign } from "../utils/jwt.utils";
 import { get } from "lodash";

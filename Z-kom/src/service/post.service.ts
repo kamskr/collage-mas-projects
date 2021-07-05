@@ -4,7 +4,7 @@ import {
   UpdateQuery,
   QueryOptions,
 } from "mongoose";
-import Post, { PostDocument } from "../model/post.model";
+import Post, { PostDocument } from "../model/Order.model";
 
 export function createPost(input: DocumentDefinition<PostDocument>) {
   return Post.create(input);
