@@ -172,9 +172,6 @@ export const main = (): void => {
 
   console.log(company.getEmploymentHistory());
 
-  // Xor
-  console.log("\n\n** BAG **\n\n");
-
   //  Ograniczenie własne
   console.log("\n\n** OGRANICZENIA WŁASNE **\n\n");
   // Jak rozumiem, są to dowonle ograniczenia wymagane przez klienta
