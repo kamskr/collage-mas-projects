@@ -3,6 +3,7 @@ import { get } from "lodash";
 import {
   createOrder,
   findOrder,
+  findOrders,
   findAndUpdate,
   deleteOrder,
 } from "../service/Order.service";
@@ -30,13 +31,26 @@ export async function updateOrderHandler(req: Request, res: Response) {
 
 export async function getOrderHandler(req: Request, res: Response) {
   const orderId = get(req, "params.orderId");
-  const order = await findOrder({ orderId });
+
+  const order = await findOrder({ _id: orderId });
 
   if (!order) {
     return res.sendStatus(404);
   }
 
   return res.send(order);
+}
+
+export async function getOrderByClientHandler(req: Request, res: Response) {
+  const clientId = get(req, "params.clientId");
+
+  const orders = await findOrders({ clientId: clientId });
+
+  if (!orders) {
+    return res.sendStatus(404);
+  }
+
+  return res.send(orders);
 }
 
 export async function deleteOrderHandler(req: Request, res: Response) {

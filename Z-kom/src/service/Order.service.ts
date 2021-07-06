@@ -17,6 +17,10 @@ export function findOrder(
   return Order.findOne(query, {}, options);
 }
 
+export function findOrders(query: FilterQuery<OrderDocument>) {
+  return Order.find(query).lean();
+}
+
 export function findAndUpdate(
   query: FilterQuery<OrderDocument>,
   update: UpdateQuery<OrderDocument>,

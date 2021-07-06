@@ -3,6 +3,7 @@ import {
   createOrderHandler,
   deleteOrderHandler,
   getOrderHandler,
+  getOrderByClientHandler,
   updateOrderHandler,
 } from "./contoller/Order.controller";
 import {
@@ -83,7 +84,12 @@ export default function (app: Express) {
     [requiresUser, validateRequest(updateOrderSchema)],
     updateOrderHandler
   );
-  app.get("/api/orders/:orderId", getOrderHandler);
+  app.get("/api/orders/:orderId", requiresUser, getOrderHandler);
+  app.get(
+    "/api/ordersByClient/:clientId",
+    requiresUser,
+    getOrderByClientHandler
+  );
   app.delete(
     "/api/orders/:orderId",
     [requiresUser, validateRequest(deleteOrderSchema)],

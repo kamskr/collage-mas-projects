@@ -4,7 +4,7 @@ import { EmployeeDocument } from "./Employee.model";
 import { RegularClientDocument } from "./RegularClient.model";
 
 export class OrderDocument extends mongoose.Document {
-  client: RegularClientDocument["_id"];
+  clientId: RegularClientDocument["_id"];
   products: ProductDocument[];
   orderDate: Date;
   totalPrice: number;
@@ -25,7 +25,7 @@ export class OrderDocument extends mongoose.Document {
 
 const OrderSchema = new mongoose.Schema(
   {
-    client: { type: mongoose.Schema.Types.ObjectId, ref: "RegularClient" },
+    clientId: { type: mongoose.Schema.Types.ObjectId, ref: "RegularClient" },
     products: [ProductSchema],
     orderDate: Date,
     totalPrice: Number,
