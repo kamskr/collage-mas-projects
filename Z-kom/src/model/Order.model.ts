@@ -1,7 +1,7 @@
 import { Product } from "./Product.model";
 import mongoose from "mongoose";
 import { EmployeeDocument } from "./Employee.model";
-import { RegularClientDocument } from "./RegularClient";
+import { RegularClientDocument } from "./RegularClient.model";
 
 export class OrderDocument extends mongoose.Document {
   client: RegularClientDocument["_id"];
@@ -12,7 +12,6 @@ export class OrderDocument extends mongoose.Document {
 
   constructor(data: {
     products: Product[];
-    orderDate: Date;
     totalPrice: number;
     deliveryCost: number;
   }) {

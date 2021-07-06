@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { validatePassword } from "../service/user.service";
+import { validatePassword } from "../service/Employee.service";
 import {
   createAccessToken,
   createSession,
@@ -10,17 +10,23 @@ import config from "../config";
 import { sign } from "../utils/jwt.utils";
 import { get } from "lodash";
 
-export const createUserSessionHandler = async (req: Request, res: Response) => {
-  const user = await validatePassword(req.body);
+export const createEmployeeSessionHandler = async (
+  req: Request,
+  res: Response
+) => {
+  const employee = await validatePassword(req.body);
 
-  if (!user) {
+  if (!employee) {
     return res.status(401).send("Invalid username or password");
   }
 
-  const session = await createSession(user._id, req.get("user-agent") || "");
+  const session = await createSession(
+    employee._id,
+    req.get("user-agent") || ""
+  );
 
   const accessToken = createAccessToken({
-    user,
+    employee,
     session,
   });
 
@@ -31,7 +37,7 @@ export const createUserSessionHandler = async (req: Request, res: Response) => {
   return res.send({ accessToken, refreshToken });
 };
 
-export const invalidateUserSessionHandler = async (
+export const invalidateEmployeeSessionHandler = async (
   req: Request,
   res: Response
 ) => {
@@ -42,9 +48,13 @@ export const invalidateUserSessionHandler = async (
   res.sendStatus(200);
 };
 
-export const getUserSessionsHandler = async (req: Request, res: Response) => {
-  const userId = get(req, "user._id");
-  const sessions = await findSessions({ user: userId, valid: true });
+export const getEmployeeSessionsHandler = async (
+  req: Request,
+  res: Response
+) => {
+  const employeeId = get(req, "user._id");
+  const sessions = await findSessions({ employee: employeeId, valid: true });
+  console.log(employeeId);
 
   return res.send(sessions);
 };

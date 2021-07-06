@@ -1,8 +1,9 @@
-import { object, string, ref } from "yup";
+import { object, string, ref, number, array } from "yup";
 
-export const createUserSchema = object({
+export const createEmployeeSchema = object({
   body: object({
     name: string().required("Name is required"),
+    surname: string().required("Surname is required"),
     password: string()
       .required("Password is required")
       .min(6, "Password is too short - should be 6 chars minimum.")
@@ -14,10 +15,13 @@ export const createUserSchema = object({
     email: string()
       .email("Must be a valid email")
       .required("Email is required"),
+    salary: number().required("Salary is required").min(2000),
+    trainings: array().of(string()).required("Trainings are required"),
+    specialisation: string().required("Specialisation is required"),
   }),
 });
 
-export const createUserSessionSchema = object({
+export const createEmployeeSessionSchema = object({
   body: object({
     password: string()
       .required("Password is required")

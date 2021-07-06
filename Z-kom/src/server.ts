@@ -21,5 +21,6 @@ export const setUpServer = () => {
     connect();
 
     routes(app);
+    console.log("listening");
   });
 };

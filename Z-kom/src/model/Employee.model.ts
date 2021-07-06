@@ -65,6 +65,11 @@ export class EmployeeDocument
 
     this.salary = salary;
   };
+  public async comparePassword(candidatePassword: string): Promise<boolean> {
+    const user = this as EmployeeDocument;
+
+    return bcrypt.compare(candidatePassword, user.password).catch((e) => false);
+  }
 }
 
 const EmployeeSchema = new mongoose.Schema(
@@ -106,6 +111,8 @@ EmployeeSchema.pre("save", async function (next: mongoose.HookNextFunction) {
 
 // Used for logging in
 EmployeeSchema.methods.getSalary = EmployeeDocument.prototype.getSalary;
+EmployeeSchema.methods.comparePassword =
+  EmployeeDocument.prototype.comparePassword;
 EmployeeSchema.methods.getTrainings = EmployeeDocument.prototype.getTrainings;
 EmployeeSchema.methods.getEmail = EmployeeDocument.prototype.getEmail;
 EmployeeSchema.methods.setNewSalary = EmployeeDocument.prototype.setNewSalary;

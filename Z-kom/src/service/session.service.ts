@@ -1,31 +1,31 @@
 import { FilterQuery, LeanDocument, UpdateQuery } from "mongoose";
 import Session, { SessionDocument } from "../model/session.model";
-import { UserDocument } from "../model/user.model";
+import { EmployeeDocument } from "../model/Employee.model";
 import config from "../config";
 import { decode, sign } from "../utils/jwt.utils";
 import { get } from "lodash";
-import { findUser } from "./user.service";
+import { findEmployee } from "./Employee.service";
 
-export async function createSession(userId: string, userAgent: string) {
-  const session = await Session.create({ user: userId, userAgent });
+export async function createSession(employeeId: string, userAgent: string) {
+  const session = await Session.create({ employee: employeeId, userAgent });
 
   return session.toJSON();
 }
 
 export function createAccessToken({
-  user,
+  employee,
   session,
 }: {
-  user:
-    | Omit<UserDocument, "password">
-    | LeanDocument<Omit<UserDocument, "password">>;
+  employee:
+    | Omit<EmployeeDocument, "password">
+    | LeanDocument<Omit<EmployeeDocument, "password">>;
   session:
     | Omit<SessionDocument, "password">
     | LeanDocument<Omit<SessionDocument, "password">>;
 }) {
   // Build and return the new access token
   const accessToken = sign(
-    { ...user, session: session._id },
+    { ...employee, session: session._id },
     { expiresIn: config.refreshTokenTtl } // 15 minutes
   );
 
@@ -44,11 +44,11 @@ export async function reIssueAccessToken({
 
   if (!session || !session?.valid) return false;
 
-  const user = await findUser({ _id: session.user });
+  const employee = await findEmployee({ _id: session.employee });
 
-  if (!user) return false;
+  if (!employee) return false;
 
-  const accessToken = createAccessToken({ user, session });
+  const accessToken = createAccessToken({ employee, session });
 
   return accessToken;
 }

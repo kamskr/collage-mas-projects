@@ -1,59 +1,73 @@
 import { Express, Request, Response } from "express";
 import {
-  createPostHandler,
-  deletePostHandler,
-  getPostHandler,
-  updatePostHandler,
-} from "./contoller/post.controller";
+  createOrderHandler,
+  deleteOrderHandler,
+  getOrderHandler,
+  updateOrderHandler,
+} from "./contoller/Order.controller";
 import {
-  createUserSessionHandler,
-  invalidateUserSessionHandler,
-  getUserSessionsHandler,
+  createEmployeeSessionHandler,
+  invalidateEmployeeSessionHandler,
+  getEmployeeSessionsHandler,
 } from "./contoller/session.controller";
-import { createUserHandler } from "./contoller/user.controller";
+import { createEmployeeHandler } from "./contoller/Employee.controller";
+import { createRegularClientHandler } from "./contoller/Client.controller";
 import { validateRequest, requiresUser } from "./middleware";
 import {
-  createPostSchema,
-  deletePostSchema,
-  updatePostSchema,
-} from "./schema/post.schema";
+  createOrderSchema,
+  deleteOrderSchema,
+  updateOrderSchema,
+} from "./schema/Order.schema";
 import {
-  createUserSchema,
-  createUserSessionSchema,
-} from "./schema/user.schema";
+  createEmployeeSchema,
+  createEmployeeSessionSchema,
+} from "./schema/Employee.schema";
+import { createClientSchema } from "./schema/Client.schema";
 
 export default function (app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
 
   // Authentication
   // Register
-  app.post("/api/users", validateRequest(createUserSchema), createUserHandler);
+  app.post(
+    "/api/employees",
+    validateRequest(createEmployeeSchema),
+    createEmployeeHandler
+  );
+
   // Login
   app.post(
     "/api/sessions",
-    validateRequest(createUserSessionSchema),
-    createUserSessionHandler
+    validateRequest(createEmployeeSessionSchema),
+    createEmployeeSessionHandler
   );
   // Get the user's session
-  app.get("/api/sessions", requiresUser, getUserSessionsHandler);
+  app.get("/api/sessions", requiresUser, getEmployeeSessionsHandler);
   // Logout
-  app.delete("/api/sessions", requiresUser, invalidateUserSessionHandler);
+  app.delete("/api/sessions", requiresUser, invalidateEmployeeSessionHandler);
 
-  // Post
+  // Client
   app.post(
-    "/api/posts",
-    [requiresUser, validateRequest(createPostSchema)],
-    createPostHandler
+    "/api/clients",
+    validateRequest(createClientSchema),
+    createRegularClientHandler
+  );
+
+  // Order
+  app.post(
+    "/api/orders",
+    [requiresUser, validateRequest(createOrderSchema)],
+    createOrderHandler
   );
   app.put(
-    "/api/posts/:postId",
-    [requiresUser, validateRequest(updatePostSchema)],
-    updatePostHandler
+    "/api/orders/:orderId",
+    [requiresUser, validateRequest(updateOrderSchema)],
+    updateOrderHandler
   );
-  app.get("/api/posts/:postId", getPostHandler);
+  app.get("/api/orders/:orderId", getOrderHandler);
   app.delete(
-    "/api/posts/:postId",
-    [requiresUser, validateRequest(deletePostSchema)],
-    deletePostHandler
+    "/api/orders/:orderId",
+    [requiresUser, validateRequest(deleteOrderSchema)],
+    deleteOrderHandler
   );
 }
