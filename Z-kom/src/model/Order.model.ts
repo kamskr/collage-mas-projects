@@ -1,17 +1,17 @@
-import { Product } from "./Product.model";
+import { ProductDocument, ProductSchema } from "./Product.model";
 import mongoose from "mongoose";
 import { EmployeeDocument } from "./Employee.model";
 import { RegularClientDocument } from "./RegularClient.model";
 
 export class OrderDocument extends mongoose.Document {
   client: RegularClientDocument["_id"];
-  products: Product["_id"][];
+  products: ProductDocument[];
   orderDate: Date;
   totalPrice: number;
   deliveryCost: number;
 
   constructor(data: {
-    products: Product[];
+    products: ProductDocument[];
     totalPrice: number;
     deliveryCost: number;
   }) {
@@ -26,7 +26,7 @@ export class OrderDocument extends mongoose.Document {
 const OrderSchema = new mongoose.Schema(
   {
     client: { type: mongoose.Schema.Types.ObjectId, ref: "RegularClient" },
-    products: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+    products: [ProductSchema],
     orderDate: Date,
     totalPrice: Number,
     deliveryCost: Number,

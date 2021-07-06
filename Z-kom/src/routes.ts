@@ -11,7 +11,15 @@ import {
   getEmployeeSessionsHandler,
 } from "./contoller/session.controller";
 import { createEmployeeHandler } from "./contoller/Employee.controller";
-import { createRegularClientHandler } from "./contoller/Client.controller";
+import {
+  createRegularClientHandler,
+  getClientsHandler,
+} from "./contoller/Client.controller";
+import {
+  createProductHandler,
+  getProductHandler,
+  getProductsHandler,
+} from "./contoller/Product.controller";
 import { validateRequest, requiresUser } from "./middleware";
 import {
   createOrderSchema,
@@ -23,6 +31,7 @@ import {
   createEmployeeSessionSchema,
 } from "./schema/Employee.schema";
 import { createClientSchema } from "./schema/Client.schema";
+import { createProductSchema } from "./schema/Product.schema";
 
 export default function (app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
@@ -52,6 +61,16 @@ export default function (app: Express) {
     validateRequest(createClientSchema),
     createRegularClientHandler
   );
+  app.get("/api/clients", requiresUser, getClientsHandler);
+
+  // Product
+  app.post(
+    "/api/products",
+    validateRequest(createProductSchema),
+    createProductHandler
+  );
+  app.get("/api/products", requiresUser, getProductsHandler);
+  app.get("/api/products/:productId", requiresUser, getProductHandler);
 
   // Order
   app.post(

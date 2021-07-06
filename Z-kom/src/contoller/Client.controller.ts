@@ -8,15 +8,15 @@ export const createRegularClientHandler = async (
   res: Response
 ) => {
   try {
-    const employee = await createRegularClient(req.body);
-    return res.send(omit(employee.toJSON(), "password"));
+    const client = await createRegularClient(req.body);
+    return res.send(client.toJSON());
   } catch (error) {
     log.error(error.message);
     return res.status(409).send(error.message);
   }
 };
 
-export const getAllClientsHandler = async (req: Request, res: Response) => {
+export const getClientsHandler = async (req: Request, res: Response) => {
   const clients = await findClients({});
 
   return res.send(clients);
