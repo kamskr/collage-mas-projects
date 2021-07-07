@@ -1,19 +1,16 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { Login } from "./faetures/Login";
 import { Dashboard } from "./faetures/Dashboard";
 import { AuthProvider } from "./contexts/AuthContext";
+import { GuestRoute, PrivateRoute } from "./routes";
 
 function App() {
   return (
     <AuthProvider>
       <Router>
         <Switch>
-          <Route exacts path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/">
-            <Dashboard />
-          </Route>
+          <GuestRoute exacts path="/login" component={Login} />
+          <PrivateRoute path="/" component={Dashboard} />
         </Switch>
       </Router>
     </AuthProvider>

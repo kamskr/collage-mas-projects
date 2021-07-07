@@ -7,6 +7,8 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
   const {
     user: { authenticated },
   } = useAuth();
+  console.log("hello");
+  console.log(authenticated);
   return (
     <Route
       {...rest}
@@ -16,7 +18,10 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
             <Component {...props} />
           </>
         ) : (
-          <Redirect to="/login" />
+          <>
+            <p>Hello</p>
+            <Redirect to="/login" />
+          </>
         )
       }
     />
