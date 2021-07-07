@@ -4,7 +4,7 @@ export class Api {
   client;
 
   constructor() {
-    this.client = new HttpClient(process.env.REACT_APP_API_URL || "");
+    this.client = new HttpClient("http://localhost:1337/api");
   }
 
   setAuthToken(token) {
@@ -16,7 +16,7 @@ export class Api {
   }
 
   async login({ login, password }) {
-    const res = await this.client.post("/login/", {
+    const res = await this.client.post("/sessions", {
       email: login,
       password: password,
     });

@@ -29,6 +29,8 @@ export class HttpClient {
 
   post(route, data, config) {
     const promise = axios.post(this.apiRoute(route), data, config);
+    console.log(promise);
+
     return dispatchRequest(promise);
   }
 
@@ -57,7 +59,9 @@ export class HttpClient {
 
 const dispatchRequest = async (promise) => {
   try {
+    console.log(promise);
     const response = await promise;
+
     return parseResponse(response);
   } catch (e) {
     const response = parseResponse(e.response);

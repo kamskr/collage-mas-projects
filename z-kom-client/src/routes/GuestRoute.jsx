@@ -6,6 +6,7 @@ export const GuestRoute = ({ component: Component, ...rest }) => {
   const {
     user: { authenticated },
   } = useAuth();
+  console.log(authenticated);
   return (
     <Route
       {...rest}

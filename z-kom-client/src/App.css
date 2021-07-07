@@ -5,3 +5,14 @@
   justify-content: center;
   align-items: center;
 }
+
+button {
+  display: inline-block;
+  background-color: rgb(44, 62, 80);
+  border: none;
+  color: white;
+  width: fit-content;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 10px;
+}
