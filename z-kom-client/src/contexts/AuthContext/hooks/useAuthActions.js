@@ -49,8 +49,10 @@ export const useAuthActions = (userDispatch, uiDispatch) => {
 
   const logout = async () => {
     try {
-      localStorage.removeItem("token");
+      await api.logout();
+      localStorage.removeItem("accessToken");
       api.clearAuthToken();
+
       userDispatch({
         type: SET_UNAUTHENTICATED,
       });

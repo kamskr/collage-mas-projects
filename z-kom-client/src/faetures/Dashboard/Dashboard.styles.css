@@ -1,0 +1,21 @@
+.dashboard-container {
+}
+.menu {
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  background-color: rgb(44, 62, 80);
+  text-decoration: none;
+  color: white;
+  padding: 15px 0;
+  text-align: center;
+  margin: 20px;
+  width: 300px;
+  border-radius: 10px;
+}
+button {
+  padding: 10px 0 !important;
+  width: 300px !important;
+}

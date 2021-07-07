@@ -22,4 +22,8 @@ export class Api {
     });
     return res;
   }
+  async logout() {
+    const res = await this.client.delete("/sessions");
+    return res;
+  }
 }
