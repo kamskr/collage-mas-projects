@@ -47,4 +47,9 @@ export class Api {
     const res = await this.client.post("/orders", data);
     return res;
   }
+
+  async getOrderByClient(clientId) {
+    const res = await this.client.get(`/ordersByClient/${clientId}`);
+    return res;
+  }
 }

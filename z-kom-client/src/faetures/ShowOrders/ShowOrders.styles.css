@@ -1,0 +1,52 @@
+.show-orders-container {
+  width: 400px;
+  position: relative;
+}
+
+.show-orders-content {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: scroll;
+}
+
+.order-item-container {
+  background-color: rgb(44, 62, 80);
+  color: white;
+  margin: 10px 0;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+
+.simple-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  width: 600px;
+  height: 400px;
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  position: relative;
+}
+.cross-icon {
+  position: absolute;
+  right: 15px;
+  top: 5px;
+  cursor: pointer;
+  content: "x";
+  color: #000;
+  font-weight: 300;
+  font-family: Arial, sans-serif;
+  font-size: 36px;
+}
