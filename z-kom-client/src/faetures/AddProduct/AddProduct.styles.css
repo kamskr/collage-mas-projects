@@ -1,7 +1,7 @@
 .add-product-container {
   width: 700px;
 }
-form {
+.product-form {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

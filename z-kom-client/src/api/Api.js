@@ -32,4 +32,19 @@ export class Api {
     const res = await this.client.post("/products", data);
     return res;
   }
+
+  async getProducts() {
+    const res = await this.client.get("/products");
+    return res;
+  }
+
+  async getClients() {
+    const res = await this.client.get("/clients");
+    return res;
+  }
+
+  async addOrder(data) {
+    const res = await this.client.post("/orders", data);
+    return res;
+  }
 }

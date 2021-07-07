@@ -2,7 +2,9 @@ label {
   margin: 20px 0 10px 0;
 }
 
-input {
+input,
+select {
   height: 40px;
   border-radius: 10px;
+  font-size: 18px;
 }

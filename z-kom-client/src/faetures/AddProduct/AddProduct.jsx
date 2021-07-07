@@ -35,7 +35,7 @@ export const AddProduct = () => {
       <h1>Z-kom</h1>
       <h2>Add product</h2>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="product-form " onSubmit={handleSubmit(onSubmit)}>
         <div className="input-container">
           <Input label="Name" register={register} required />
         </div>
