@@ -22,8 +22,14 @@ export class Api {
     });
     return res;
   }
+
   async logout() {
     const res = await this.client.delete("/sessions");
+    return res;
+  }
+
+  async addProduct(data) {
+    const res = await this.client.post("/products", data);
     return res;
   }
 }

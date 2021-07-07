@@ -16,3 +16,19 @@ button {
   font-size: 18px;
   border-radius: 10px;
 }
+
+.link-cancel {
+  background-color: transparent;
+  color: rgb(252, 67, 73);
+  width: 70px !important;
+}
+
+.link-cancel-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.link-cancel-container > button {
+  margin-left: 0;
+  margin-right: 20px;
+}

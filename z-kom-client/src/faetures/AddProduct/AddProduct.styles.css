@@ -1,0 +1,17 @@
+.add-product-container {
+  width: 700px;
+}
+form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+}
